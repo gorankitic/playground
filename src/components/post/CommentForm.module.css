@@ -1,0 +1,31 @@
+.add {
+    display: flex;
+    margin: 5px 0;
+}
+
+.add input {
+    background-color: var(--bg-color);
+    border-style: hidden;
+    outline: none;
+    padding: 0;
+}
+
+.add input:focus {
+    border-radius: 0;
+    border-bottom: 1px solid #999;
+}
+
+.add .btn {
+    width: 120px;
+    height: 30px;
+    font-size: 1rem;
+    padding: 0 5px;
+    background: var(--bg-color);
+    color: var(--profile-color);
+    border: 1px solid var(--profile-color);
+}
+
+.add .btn:hover {
+    color: var(--bg-color);
+    background-color: var(--profile-color);
+}
