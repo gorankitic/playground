@@ -7,6 +7,7 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Timeline from './pages/timeline/Timeline';
+import Profile from './pages/profile/Profile';
 // styles
 import './App.css';
 
@@ -19,9 +20,10 @@ function App() {
         <BrowserRouter>
           <Navbar />
           <Routes>
-          <Route path='/' element={!user ? <Login /> : <Timeline />} />
+            <Route path='/' element={!user ? <Login /> : <Timeline />} />
             <Route path='/login' element={!user ? <Login /> : <Timeline />} />
             <Route path='/signup' element={!user ? <Signup /> : <Timeline />} />
+            <Route path='/:uid' element={!user ? <Login /> : <Profile />} />
           </Routes>
         </BrowserRouter>
       )}

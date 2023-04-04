@@ -36,7 +36,7 @@ const Navbar = () => {
                     <>
                         <li className={styles.icons}>
                             <img src={User} alt='user profile icon' />
-                            <Link to='/'>Profile</Link>
+                            <Link to={`/${user.uid}`}>Profile</Link>
                         </li>
                         <li className={styles.notification}>
                             <img src={Notification} alt='notification icon' />

@@ -1,0 +1,4 @@
+.progressbar {
+    height: 3px;
+    background: var(--primary-color);
+}
