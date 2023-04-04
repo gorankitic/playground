@@ -34,7 +34,7 @@ const Signup = () => {
     };
 
     return (
-        <form className='auth-form' onSubmit={submitHandler}>
+        <form className={styles.auth} onSubmit={submitHandler}>
             <h2>SIGN UP TO PLAYGROUND</h2>
             <label>
                 <span>Email:</span>
@@ -49,9 +49,9 @@ const Signup = () => {
                 <input type='text' onChange={(e) => setUserName(e.target.value)} value={userName} required />
             </label>
             <span>Profile photo:</span>
-            <label className='upload-label'>
-                <span>Upload</span>
-                <input className='upload-btn' type='file' onChange={handleFileChange} required />
+            <label className={styles.label}>
+                <span>Upload Photo</span>
+                <input className={styles.button} type='file' onChange={handleFileChange} required />
                 {profilePhotoError && <div className='error'>{profilePhotoError}</div>}
             </label>
             {!isPending && <button className='btn'>Sign Up</button>}

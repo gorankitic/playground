@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 // hooks
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { useLogout } from '../../hooks/useLogout';
 // assets
 import Play from '../../assets/play.svg';
 import Login from '../../assets/login.svg';
@@ -12,6 +13,7 @@ import styles from './Navbar.module.css';
 
 const Navbar = () => {
     const { user } = useAuthContext();
+    const { logout, isPending } = useLogout();
 
     return (
         <div className={styles.navbar}>
@@ -40,8 +42,8 @@ const Navbar = () => {
                             <img src={Notification} alt='notification icon' />
                         </li>
                         <li>
-                            <button className='btn'>Logout</button>
-                            {/* <button className='btn' disabled>Logging out</button> */}
+                            {!isPending &&<button className='btn' onClick={logout}>Logout</button>}
+                            {isPending &&<button className='btn' disabled>Logging out</button>}
                         </li>
                     </>
                 }

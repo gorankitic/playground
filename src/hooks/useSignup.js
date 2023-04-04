@@ -50,8 +50,7 @@ export const useSignup = () => {
                 setIsPending(false);
                 setError(null);
             }
-        }
-        catch (err) {
+        } catch (err) {
             if (!isCancelled) {
                 setError(err.message);
                 setIsPending(false);

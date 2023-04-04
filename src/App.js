@@ -7,7 +7,6 @@ import { useAuthContext } from './hooks/useAuthContext';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Timeline from './pages/timeline/Timeline';
-
 // styles
 import './App.css';
 

@@ -1,0 +1,30 @@
+.auth button {
+    display: block;
+    margin-left: auto;
+    width: 150px;
+}
+
+.button {
+    display: none;
+}
+
+.label {
+    margin-top: 10px;
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1em;
+    border: 1px solid var(--bg-color);
+}
+  
+.label:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+}
+
+.label span {
+    margin-bottom: 0;
+    text-align: center;
+}
