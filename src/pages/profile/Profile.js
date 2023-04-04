@@ -17,20 +17,27 @@ const Profile = () => {
     const { uid } = useParams();
     const { user } = useAuthContext();
     const { document: currentUser } = useDocument('users', uid);
-    const { document: signedInUser } = useDocument('users', user.uid);
     const { count, documents } = useCollection('images', ["userId", "==", uid], ["createdAt", "desc"]);
-    const { updateDocument } = useFirestore('users');
-
-    const handleFollow = async () => {
-        await updateDocument(user.uid, { following: [...signedInUser.following, currentUser.id] });
-        await updateDocument(uid, { followers: [...currentUser.followers, signedInUser.id] });
+    // Add following and followers to handle follow
+    const { addDocument: addFollowing } = useFirestore(`following/${user.uid}/followingUsers`);
+    const { addDocument: addFollowers } = useFirestore(`followers/${uid}/userFollowers`);
+    // Count following and followers
+    const { count: followingCount } = useCollection(`following/${uid}/followingUsers`, ["userId", "==", uid]);
+    const { count: followersCount } = useCollection(`followers/${uid}/userFollowers`, ["userId", "==", uid]);
+    // To conditionaly render follow/unfollow button find did signedInUser follow currentUser
+    const { count: countOne } = useCollection(`following/${user.uid}/followingUsers`, ["followingUserId", "==", uid]);
+    // Remove following and followers to handle unfollow
+    const { deleteDocument: removeFollowing } = useFirestore(`following/${user.uid}/followingUsers`);
+    const { deleteDocument: removeFollowers } = useFirestore(`followers/${uid}/userFollowers`);
+    
+    const handleFollow = () => {
+       addFollowing(uid, { userId: user.uid, followingUserId: uid });
+       addFollowers(user.uid, { userId: uid, followingUserId: user.uid });
     };
 
-    const handleUnfollow = async () => {
-        const newFollowing = signedInUser.following.filter((follower) => follower.id === currentUser.id);
-        await updateDocument(user.uid, { following: newFollowing });
-        const newFollowers = currentUser.followers.filter(follower => follower.id === signedInUser.id);
-        await updateDocument(uid, { followers: newFollowers });
+    const handleUnfollow = () => {
+        removeFollowing(uid);
+        removeFollowers(user.uid);
     };
 
     return (
@@ -41,11 +48,11 @@ const Profile = () => {
                         <div className={styles.user}>
                             <img src={currentUser.photoURL} alt='user profile' />
                             <h1>{currentUser.displayName}</h1>
-                            {user.uid !== uid && !currentUser.followers.includes(user.uid) && <button className='btn' onClick={handleFollow}>Follow</button>}
-                            {user.uid !== uid && currentUser.followers.includes(user.uid) && <button className='btn' onClick={handleUnfollow}>Unfollow</button>}
+                            {user.uid !== uid && countOne === 0 && <button className='btn' onClick={handleFollow}>Follow</button>}
+                            {user.uid !== uid && countOne === 1 && <button className='btn' onClick={handleUnfollow}>Unfollow</button>}
                             <p>{count} photos</p>
-                            <p>{0} followers</p>
-                            <p>{0} following</p>
+                            <p>{followersCount} followers</p>
+                            <p>{followingCount} following</p>
                         </div>
                         <UploadForm />
                     </div>

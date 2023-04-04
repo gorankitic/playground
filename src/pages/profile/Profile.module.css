@@ -29,10 +29,10 @@
 
 .user button {
     width: 150px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: bold;
-    color: var(--profile-color);
-    border: 1px solid var(--profile-color);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
     margin: 20px auto;
     display: block;
 }

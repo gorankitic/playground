@@ -38,7 +38,7 @@ export const useStorage = (file) => {
                 const imgURL = await getDownloadURL(storageRef);
                 setUrl(imgURL);
                 // Create a image document in firestore collection images
-                await addDoc(imagesRef, { userId: user.uid, photoURL: imgURL, createdAt: Timestamp.fromDate(new Date()), comments: [], likes: [] });
+                await addDoc(imagesRef, { userId: user.uid, photoURL: imgURL, createdAt: Timestamp.fromDate(new Date()) });
             });
         };
         uploadFile();
