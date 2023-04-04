@@ -1,7 +1,7 @@
 .grid {
     width: 1200px;
     margin: 0 auto;
-    margin-left: 20px;
+    margin-left: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-columns: 350px;

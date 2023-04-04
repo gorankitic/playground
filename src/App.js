@@ -8,6 +8,7 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Timeline from './pages/timeline/Timeline';
 import Profile from './pages/profile/Profile';
+import Search from './pages/search/Search';
 // styles
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
             <Route path='/login' element={!user ? <Login /> : <Timeline />} />
             <Route path='/signup' element={!user ? <Signup /> : <Timeline />} />
             <Route path='/:uid' element={!user ? <Login /> : <Profile />} />
+            <Route path='/search' element={!user ? <Login /> : <Search />} />
           </Routes>
         </BrowserRouter>
       )}
