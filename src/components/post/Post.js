@@ -5,7 +5,7 @@ import { useFirestore } from '../../hooks/useFirestore';
 import { useCollection } from '../../hooks/useCollection';
 // components
 import { Link } from 'react-router-dom';
-// import CommentsList from './CommentsList';
+import CommentsList from './CommentsList';
 import CommentForm from './CommentForm';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -45,7 +45,7 @@ const Post = ({ image }) => {
         <div className={styles.post}>
             <div className={styles.header}>
                 <img src={image.profilePhotoURL} alt="small header post" />
-                <Link to={`/${image.userId}`}>{image.displayName}</Link>
+                <Link to={`/${image.userId}`} className={styles.link}>{image.displayName}</Link>
             </div>
             <img src={image.photoURL} alt="enlarged user timeline" />
             <div className={styles.icons}>
@@ -57,8 +57,8 @@ const Post = ({ image }) => {
             <div className={styles.likes}>
                 {likes === 1 ? <p>{likes} like</p> : <p>{likes} likes</p>}
             </div>
-            {/* <CommentsList  />     */}
-            <CommentForm image={image} commentInput={commentInput} />
+            <CommentsList imageId={image.id} />    
+            <CommentForm imageId={image.id} commentInput={commentInput} />
         </div>    
     )
 }

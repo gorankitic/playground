@@ -7,22 +7,23 @@ import { useFirestore } from '../../hooks/useFirestore';
 // styles
 import styles from './CommentForm.module.css'
 
-const CommentForm = ({ image, commentInput }) => {
+const CommentForm = ({ imageId, commentInput }) => {
     const [newComment, setNewComment] = useState('');
     const { user } = useAuthContext();
-    const { updateDocument } = useFirestore('images');
+    const { addDocument } = useFirestore(`images/${imageId}/comments`);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const commentToAdd = {
             displayName: user.displayName,
+            photoURL: user.photoURL,
             userId: user.uid,
+            imageId,
             content: newComment,
             createdAt: Timestamp.fromDate(new Date()),
             id: Math.random()
         };
-        updateDocument(image.id, { comments: [ ...image.comments, commentToAdd ] });
+        addDocument(commentToAdd);
         setNewComment('');
     };
 
