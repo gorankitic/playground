@@ -30,7 +30,7 @@ const CommentForm = ({ image, commentInput }) => {
         <div>
             <form className={styles.add} onSubmit={handleSubmit}>
                 <input type='text' onChange={(e) => setNewComment(e.target.value)} value={newComment} placeholder='Add comment...' autoComplete='off' ref={commentInput} />
-                <button className='btn' disabled={newComment.length === 0}>Post</button>
+                <button className={styles.btn} disabled={newComment.length === 0}>Post</button>
             </form>
         </div>
     );

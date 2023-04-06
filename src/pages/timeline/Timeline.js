@@ -1,5 +1,5 @@
 // hooks
-import { useTimeline } from '../../hooks/useTimeline';
+import { useTimeline } from "../../hooks/useTimeline";
 // components
 import SearchBar from '../../components/search/SearchBar';
 import Post from '../../components/post/Post';
@@ -7,26 +7,20 @@ import Post from '../../components/post/Post';
 import styles from './Timeline.module.css';
 
 const Timeline = () => {
-  const { images, followedUsers } = useTimeline();
-  
-  return (
-    <div className={styles.timeline}>
-      <SearchBar />
+    const { images } = useTimeline();
 
-      {images && images.map((image) => (
-        // eslint-disable-next-line
-        followedUsers && followedUsers.map((user) => {
-          if (image.userId === user.id) {
-            return (
+    console.log(images)
+
+    return (
+        <div className={styles.timeline}>
+            <SearchBar />
+            {images && images.map(image => (
                 <div key={image.id}>
-                  <Post imageId={image.id} followedUser={user} />
+                    <Post image={image} />
                 </div>
-            )
-          }
-        })
-      ))}
-    </div>
-  );
-}
+            ))}
+        </div>
+    );
+};
 
 export default Timeline;

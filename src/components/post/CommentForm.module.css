@@ -15,17 +15,18 @@
     border-bottom: 1px solid #999;
 }
 
-.add .btn {
+.btn {
     width: 120px;
     height: 30px;
     font-size: 1rem;
     padding: 0 5px;
     background: var(--bg-color);
-    color: var(--profile-color);
-    border: 1px solid var(--profile-color);
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 2px;
 }
 
-.add .btn:hover {
+.btn:hover {
     color: var(--bg-color);
-    background-color: var(--profile-color);
+    background-color: var(--secondary-color);
 }

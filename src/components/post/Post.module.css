@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: flex-start;
     border-radius: 3px;
-    background-color: var(--profile-color);
+    background-color: var(--secondary-color);
     color: var(--bg-color);
     border-bottom: 2px solid var(--bg-color);;
     font-size: 1.1rem;
@@ -59,6 +59,6 @@
 }
 
 .likes {
-    border-bottom: 1px solid var(--profile-color);
+    border-bottom: 1px solid var(--secondary-color);
     padding-bottom: 10px;
 }

@@ -19,8 +19,8 @@ const Profile = () => {
     const { document: currentUser } = useDocument('users', uid);
     const { count, documents } = useCollection('images', ["userId", "==", uid], ["createdAt", "desc"]);
     // Add following and followers to handle follow
-    const { addDocument: addFollowing } = useFirestore(`following/${user.uid}/followingUsers`);
-    const { addDocument: addFollowers } = useFirestore(`followers/${uid}/userFollowers`);
+    const { setDocument: addFollowing } = useFirestore(`following/${user.uid}/followingUsers`);
+    const { setDocument: addFollowers } = useFirestore(`followers/${uid}/userFollowers`);
     // Count following and followers
     const { count: followingCount } = useCollection(`following/${uid}/followingUsers`, ["userId", "==", uid]);
     const { count: followersCount } = useCollection(`followers/${uid}/userFollowers`, ["userId", "==", uid]);

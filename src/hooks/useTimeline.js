@@ -1,46 +1,40 @@
 // hooks
-import { useState } from 'react';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-
+import { useEffect, useState } from 'react';
 import { useAuthContext } from './useAuthContext';
 // firebase
 import { db } from '../firebase/config';
-import { doc, getDoc, collection, where, orderBy, query, getDocs } from 'firebase/firestore';
+import { collection, where, orderBy, query, getDocs, getDoc, doc } from 'firebase/firestore';
 
 export const useTimeline = () => {
     const [images, setImages] = useState([]);
-    const [signedInUser, setSignedInUser] = useState(null);
-    const [followedUsers, setFollowedUsers] = useState([]);
     const { user } = useAuthContext(); 
 
-    useDeepCompareEffect(() => {
+    useEffect(() => {
         const getImages = async () => {
-            // 1) Get signed in user
-            const docSnap = await getDoc(doc(db, 'users', user.uid));
-            setSignedInUser(docSnap.data())
-            
-            // 2) Find all users followed by signed in user
+            // 1) Find all users that signedIn user is following
+            const  followingRef = collection(db, `following/${user.uid}/followingUsers`);
+            const followingSnapshot = await getDocs(followingRef);
             let followedUsers = [];
-            signedInUser?.following.map(async (userId) => {
-                const followedUser = await getDoc(doc(db, 'users', userId));
-                followedUsers.push({ ...followedUser.data(), id: followedUser.id });
-            })
-            setFollowedUsers(followedUsers);
-            
-            // 3) Create reference on images collection where owner of image (userId) is in signedInUser following array
-            let ref = collection(db, 'images');
-            ref = query(ref, where("userId", "in", signedInUser?.following ? signedInUser.following : [""]), orderBy("createdAt", "desc"));
-
-            // 4) Get all those images of users that are followed
-            const querySnapshot = await getDocs(ref);
-            let results = [];
-            querySnapshot.forEach((doc) => {
-                results.push({ ...doc.data(), id: doc.id });
+            followingSnapshot.forEach((doc) => {
+                followedUsers.push(doc.id);
             });
+
+            // 2) Query all images where userId is in the followedUsers array
+            let imagesRef = collection(db, 'images');
+            imagesRef = query(imagesRef, where("userId", "in", followedUsers), orderBy("createdAt", "desc"));
+            const imagesSnapshot = await getDocs(imagesRef);
+            
+            // 3) Get followedUser data (displayName, photoURL) and push it to image doc
+            //    For POST component
+            const resultsPromises = imagesSnapshot.docs.map(async(document) => {
+                const userDoc = await getDoc(doc(db, 'users', document.data().userId))
+                return { ...document.data(), id: document.id, displayName: userDoc.data().displayName, profilePhotoURL: userDoc.data().photoURL };
+            });
+            const results = await Promise.all(resultsPromises);
             setImages(results);
         };
         getImages();
-    }, [signedInUser, user]);
+    }, [user]);
 
-    return { images, followedUsers };
+    return { images };
 };
