@@ -17,7 +17,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const { logout, isPending } = useLogout();
 
-
     return (
         <div className={styles.navbar}>
             <ul>

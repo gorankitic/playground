@@ -17,9 +17,10 @@ const Notification = () => {
             <h2>Notifications</h2>
             {notifications && notifications.map(notification => (
                 <div className={styles.notification} key={notification.id}>
-                    <img src={notification.photoURL} alt="user thumbnail" className={styles.thumbnail} />
+                    <img src={notification.profilePhotoURL} alt="user thumbnail" className={styles.thumbnail} />
                     <Link to={`/${notification.follower}`} className={styles.name}>{notification.displayName}</Link>
                     <p>{notification.content}</p>
+                    {notification.imageURL && <img src={notification.imageURL} alt='thumbnail' className={styles.imagethumbnail}/>}
                     <p className={styles.date}>{formatDistanceToNow(notification.createdAt.toDate(), { addSuffix: true })}</p>
                 </div>
             ))}

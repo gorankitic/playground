@@ -10,6 +10,7 @@ import Timeline from './pages/timeline/Timeline';
 import Profile from './pages/profile/Profile';
 import Search from './pages/search/Search';
 import Notification from './pages/notifications/Notification';
+import PostPage from './pages/post/PostPage';
 // styles
 import './App.css';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path='/:uid' element={!user ? <Login /> : <Profile />} />
             <Route path='/search' element={!user ? <Login /> : <Search />} />
             <Route path='/notifications/:uid' element={!user ? <Login /> : <Notification />} />
+            <Route path='/post/:postId' element={!user ? <Login /> : <PostPage />} />
           </Routes>
         </BrowserRouter>
       )}

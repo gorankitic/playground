@@ -2,64 +2,9 @@
     margin-bottom: 50px;
 }
 
-.post img{
+.image {
     max-width: 1000px;
     width: 500px;
     margin: 0 auto;
     display: block;
-}
-
-.link {
-    letter-spacing: 1.5px;
-    text-decoration: none;
-    color: var(--bg-color);
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 3px;
-    background-color: var(--secondary-color);
-    color: var(--bg-color);
-    border-bottom: 2px solid var(--bg-color);;
-    font-size: 1.1rem;
-}
-
-.header img {
-    display: block;
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    object-position: bottom;
-    border: 2px solid var(--bg-color);
-    border-radius: 50%;
-    margin: 5px 15px;
-}
-
-.icons {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    
-}
-
-.icons img {
-    margin: 10px 20px 10px 5px;
-    display: block;
-    width: 30px;
-    height: 30px;
-    filter: invert(15%);
-    cursor: pointer;
-}
-
-.icons p {
-    margin-left: auto;
-    padding-right: 5px;
-    font-size: 0.9rem;
-}
-
-.likes {
-    border-bottom: 1px solid var(--secondary-color);
-    padding-bottom: 10px;
 }

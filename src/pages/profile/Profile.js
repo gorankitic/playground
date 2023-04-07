@@ -1,5 +1,4 @@
 // hooks
-import { useState } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useDocument } from '../../hooks/useDocument';
 import { useParams } from 'react-router-dom';
@@ -8,12 +7,10 @@ import { useFirestore } from '../../hooks/useFirestore';
 // components
 import ImageGrid from '../../components/imageGrid/ImageGrid';
 import UploadForm from '../../components/upload/UploadForm';
-import Modal from '../../components/imageGrid/Modal';
 // styles
 import styles from './Profile.module.css';
 
 const Profile = () => {
-    const [selectedImg, setSelectedImg] = useState(null);
     const { uid } = useParams();
     const { user } = useAuthContext();
     const { document: currentUser } = useDocument('users', uid);
@@ -56,10 +53,10 @@ const Profile = () => {
                         </div>
                         <UploadForm />
                     </div>
-                    <ImageGrid setSelectedImg={setSelectedImg} documents={documents} />
+                    <ImageGrid documents={documents} />
                 </>
             )}
-            {selectedImg && <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} user={currentUser} />}
+            {/* {selectedImg && <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} user={currentUser} />} */}
         </div>
     );
 };

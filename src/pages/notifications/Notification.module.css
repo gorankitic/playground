@@ -47,6 +47,17 @@
     margin: 0 15px;
 }
 
+.imagethumbnail {
+    display: block;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: bottom;
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+    margin: 0 15px;
+}
+
 .date {
     margin-left: auto;
 }

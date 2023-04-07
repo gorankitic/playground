@@ -1,0 +1,50 @@
+.page {
+    width: 700px;
+    margin: 10px auto;
+    padding-bottom: 50px;
+}
+
+.image {
+    max-width: 8000px;
+    width: 700px;
+    margin: 0 auto;
+    display: block;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.back {
+    text-decoration: none;
+    background: var(--bg-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: var(--secondary-color);
+    cursor: pointer;
+    border: 1px solid var(--secondary-color);
+    font-size: 1em;
+}
+
+.back:hover {
+    color: #fff;
+    background-color: var(--secondary-color);
+}
+
+.delete {
+    text-decoration: none;
+    background: var(--bg-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: var(--primary-color);
+    cursor: pointer;
+    border: 1px solid var(--primary-color);
+    font-size: 1em;
+}
+
+.delete:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+}
