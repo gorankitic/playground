@@ -3,11 +3,7 @@ const admin = require('firebase-admin');
 const { getFirestore } = require('firebase-admin/firestore');
 admin.initializeApp();
 const db = getFirestore();
-
-
-exports.helloWorld = functions.https.onRequest((request, response) => {
-    response.send("Hello world!");
-});
+const cors = require('cors')({origin: true});
 
 exports.followNotification = functions.firestore.document('followers/{userId}/userFollowers/{id}')
     .onCreate(async (snap, context) => {
@@ -24,7 +20,8 @@ exports.followNotification = functions.firestore.document('followers/{userId}/us
             displayName: user.displayName,
             profilePhotoURL: user.photoURL,
             userId,
-            follower: id
+            follower: id,
+            read: false
         }  
         return admin.firestore().collection(`users/${userId}/notifications`).add(notification);
     });
@@ -43,6 +40,8 @@ exports.likeNotification = functions.firestore.document('images/{imageId}/likes/
             image = doc.data();
         });
 
+        if(image.userId === id) return;
+
         const notification = {
             createdAt: admin.firestore.FieldValue.serverTimestamp(),
             content: 'liked your photo.',
@@ -52,7 +51,7 @@ exports.likeNotification = functions.firestore.document('images/{imageId}/likes/
             imageURL: image.photoURL,
             userId: image.userId,
             imageId,
-
+            read: false
         };
         return admin.firestore().collection(`users/${image.userId}/notifications`).add(notification);
     });
@@ -82,6 +81,21 @@ exports.commentNotification = functions.firestore.document('images/{imageId}/com
             imageURL: image.photoURL,
             userId: image.userId,
             imageId,
+            read: false
         };
         return admin.firestore().collection(`users/${image.userId}/notifications`).add(notification);
     });
+
+exports.markNotificationRead = functions.https.onRequest((request, response) => {
+    return cors(request, response, async () => {
+        const userId = request.body.userId;
+        const unreadNotificationIds = request.body.unreadNotificationIds;
+        
+        let batch = db.batch();
+        unreadNotificationIds.forEach(notificationId => {
+            const notification = db.doc(`users/${userId}/notifications/${notificationId}`)
+            batch.update(notification, { read: true });
+        });
+        await batch.commit();
+    })
+});
