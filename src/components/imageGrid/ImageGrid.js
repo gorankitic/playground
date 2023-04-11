@@ -22,7 +22,7 @@ const ImageGrid = ({ documents }) => {
                         alt='single small grid photograph' 
                         initial={{opacity: 0}} 
                         animate={{opacity: 1}} 
-                        transition={{delay: 1}} 
+                        transition={{delay: 0.5}} 
                     />
                 </motion.div>
             ))}

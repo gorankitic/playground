@@ -1,20 +1,18 @@
 // components
 import { Link } from 'react-router-dom';
+import NotificationIcon from './NotificationIcon';
 // hooks
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useLogout } from '../../hooks/useLogout';
-import { useNavigate } from 'react-router-dom';
 // assets
 import Play from '../../assets/play.svg';
 import Login from '../../assets/login.svg';
 import User from '../../assets/user.svg';
-import Notification from '../../assets/notification.svg';
 // styles
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
     const { user } = useAuthContext();
-    const navigate = useNavigate();
     const { logout, isPending } = useLogout();
 
     return (
@@ -41,7 +39,7 @@ const Navbar = () => {
                             <Link to={`/${user.uid}`}>Profile</Link>
                         </li>
                         <li className={styles.notification}>
-                            <img src={Notification} alt='notification icon' onClick={() => navigate(`/notifications/${user.uid}`)} />
+                            <NotificationIcon />
                         </li>
                         <li>
                             {!isPending &&<button className='btn' onClick={logout}>Logout</button>}

@@ -9,8 +9,6 @@ import styles from './Timeline.module.css';
 const Timeline = () => {
     const { images } = useTimeline();
 
-    console.log(images)
-
     return (
         <div className={styles.timeline}>
             <SearchBar />
