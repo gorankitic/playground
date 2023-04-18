@@ -25,8 +25,8 @@ const PostPage = () => {
     const commentInput = useRef(null);
     
     const handleDelete = () => {
-        const storageRef = ref(storage, image.photoURL);
-        deleteObject(storageRef)
+        const imageRef = ref(storage, image.photoURL);
+        deleteObject(imageRef)
             .then(() => console.log("Image deleted."))
             .catch((error) => console.log(error.message));
 
