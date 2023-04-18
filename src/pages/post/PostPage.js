@@ -5,15 +5,26 @@ import CommentsList from '../../components/post/CommentsList';
 import CommentForm from '../../components/post/CommentForm';
 // hooks
 import { useRef } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import { useParams } from 'react-router-dom';
 import { useDocument } from '../../hooks/useDocument';
+import { useNavigate } from 'react-router-dom';
+import { useFirestore } from '../../hooks/useFirestore';
 // styles
 import styles from './PostPage.module.css';
 
 const PostPage = () => {
+    const { user } = useAuthContext();
     const { postId } = useParams();
+    const navigate = useNavigate();
     const { document: image } = useDocument('images', postId);
+    const { deleteDocument } = useFirestore('images');
     const commentInput = useRef(null);
+    
+    const handleDelete = () => { 
+        deleteDocument(postId);        
+        navigate(`/${user.uid}`);
+    };
 
     return (
         <div className={styles.page}>
@@ -21,7 +32,7 @@ const PostPage = () => {
                 <>
                     <div className={styles.actions}>
                         <Link to={`/${image.userId}`} className={styles.back}>Go Back</Link>
-                        <button className={styles.delete}>Delete Photo</button>
+                        { user.uid === image.userId && <button className={styles.delete} onClick={handleDelete}>Delete Photo</button> }
                     </div>
                     <img src={image.photoURL} alt="enlarged user timeline" className={styles.image} />
                     <LikeSection image={image} commentInput={commentInput} />
@@ -29,7 +40,6 @@ const PostPage = () => {
                     <CommentForm imageId={image.id} commentInput={commentInput} />
                 </>
             )}
-            
         </div>
     );
 };

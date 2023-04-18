@@ -4,6 +4,7 @@ const { getFirestore } = require('firebase-admin/firestore');
 admin.initializeApp();
 const db = getFirestore();
 const cors = require('cors')({origin: true});
+const client = require('firebase-tools');
 
 exports.followNotification = functions.firestore.document('followers/{userId}/userFollowers/{id}')
     .onCreate(async (snap, context) => {
@@ -99,3 +100,22 @@ exports.markNotificationRead = functions.https.onRequest((request, response) => 
         await batch.commit();
     })
 });
+
+exports.deleteImage = functions.firestore.document('images/{imageId}')
+    .onDelete(async (snap, context) => {
+        const imageId = context.params.imageId;
+
+        await client.firestore.delete(`images/${imageId}/comments`, {
+            project: process.env.GCLOUD_PROJECT,
+            recursive: true,
+            yes: true,
+            force: true,
+        }); 
+
+        await client.firestore.delete(`images/${imageId}/likes`, {
+            project: process.env.GCLOUD_PROJECT,
+            recursive: true,
+            yes: true,
+            force: true,
+        }); 
+    });
