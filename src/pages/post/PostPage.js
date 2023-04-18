@@ -12,6 +12,9 @@ import { useNavigate } from 'react-router-dom';
 import { useFirestore } from '../../hooks/useFirestore';
 // styles
 import styles from './PostPage.module.css';
+// firebase
+import { storage } from '../../firebase/config';
+import { ref, deleteObject } from 'firebase/storage';
 
 const PostPage = () => {
     const { user } = useAuthContext();
@@ -21,7 +24,12 @@ const PostPage = () => {
     const { deleteDocument } = useFirestore('images');
     const commentInput = useRef(null);
     
-    const handleDelete = () => { 
+    const handleDelete = () => {
+        const storageRef = ref(storage, image.photoURL);
+        deleteObject(storageRef)
+            .then(() => console.log("Image deleted."))
+            .catch((error) => console.log(error.message));
+
         deleteDocument(postId);        
         navigate(`/${user.uid}`);
     };
