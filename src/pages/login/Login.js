@@ -9,7 +9,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const { login, isPending, error } = useLogin();
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
     login(email, password)

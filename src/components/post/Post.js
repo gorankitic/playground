@@ -5,10 +5,10 @@ import Header from './Header';
 import CommentsList from './CommentsList';
 import CommentForm from './CommentForm';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import LikeSection from './LikeSection';
 
 // style
 import styles from './Post.module.css';
-import LikeSection from './LikeSection';
 
 
 const Post = ({ image }) => {

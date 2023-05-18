@@ -11,8 +11,6 @@ import Profile from './pages/profile/Profile';
 import Search from './pages/search/Search';
 import Notification from './pages/notifications/Notification';
 import PostPage from './pages/post/PostPage';
-// styles
-import './App.css';
 
 function App() {
   const { authIsReady, user } = useAuthContext();

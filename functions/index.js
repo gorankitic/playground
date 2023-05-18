@@ -94,7 +94,7 @@ exports.markNotificationRead = functions.https.onRequest((request, response) => 
         
         let batch = db.batch();
         unreadNotificationIds.forEach(notificationId => {
-            const notification = db.doc(`users/${userId}/notifications/${notificationId}`)
+            const notification = db.doc(`users/${userId}/notifications/${notificationId}`);
             batch.update(notification, { read: true });
         });
         await batch.commit();
@@ -104,6 +104,17 @@ exports.markNotificationRead = functions.https.onRequest((request, response) => 
 exports.deleteImage = functions.firestore.document('images/{imageId}')
     .onDelete(async (snap, context) => {
         const imageId = context.params.imageId;
+        const userId = snap.data().userId;
+        
+        let batch = db.batch();
+        const notificationRef = db.collection(`users/${userId}/notifications`);
+        const snapshot = await notificationRef.where('imageId', '==', imageId).get();
+
+        snapshot.forEach(notification => {
+            const notif = db.doc(`users/${userId}/notifications/${notification.id}`);
+            batch.delete(notif);    
+        });
+        await batch.commit();
 
         await client.firestore.delete(`images/${imageId}/comments`, {
             project: process.env.GCLOUD_PROJECT,

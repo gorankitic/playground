@@ -20,7 +20,6 @@ const SearchBar = () => {
             <form onSubmit={handleSubmit}> 
                 <input type='text' onChange={(e) => setWord(e.target.value)} required placeholder='Find friends' />
             </form> 
-
         </div>
     );
 };

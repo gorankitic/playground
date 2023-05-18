@@ -56,7 +56,6 @@ const Profile = () => {
                     <ImageGrid documents={documents} />
                 </>
             )}
-            {/* {selectedImg && <Modal selectedImg={selectedImg} setSelectedImg={setSelectedImg} user={currentUser} />} */}
         </div>
     );
 };

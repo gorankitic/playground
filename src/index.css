@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500&display=swap');
 
-/* css variables */
 :root {
     --text-color: #444;
     --primary-color: #d77a61;
@@ -8,7 +7,7 @@
     --highlight-color: #d8b4a0;
     --bg-color: #eff1f3;
     --profile-color2: #dbd3d8;
-  }
+}
   
 body {
     font-family: Montserrat, sans-serif;
@@ -44,21 +43,6 @@ ul {
     background-color: var(--primary-color);
 }
 
-.btn2 {
-    background: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    color: var(--secondary-color);
-    cursor: pointer;
-    border: 1px solid var(--bg-color);
-    font-size: 1em;
-}
-
-.btn2:hover {
-    color: #fff;
-    background-color: var(--secondary-color);
-}
-
 label {
     display: block;
     margin: 24px auto;
@@ -70,12 +54,13 @@ span {
 }
   
 input {
+    width: 100%;
     padding: 8px 6px;
     color: #777;
-    width: -webkit-fill-available;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1em;
+    box-sizing: border-box;
 }
   
 .error {
