@@ -6,7 +6,7 @@ User can create a profile page, upload photos, find friends, follow them, see th
 like their photos and make comments.
 The user also receives notifications in real-time when another user starts following him, likes his photo or leaves a comment.
 
-Chat functionality will be added in the next upgrade.
+©️ 2023 Goran Kitic
 
 <img src="src/assets/screenshot-2.png">
 <img src="src/assets/screenshot-3.png">
